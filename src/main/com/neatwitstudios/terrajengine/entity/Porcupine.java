@@ -1,6 +1,7 @@
 package com.neatwitstudios.terrajengine.entity;
 
 import com.neatwitstudios.terrajengine.CoordConverter;
+import com.neatwitstudios.terrajengine.SoundManager;
 import com.neatwitstudios.terrajengine.camera.Camera;
 import com.neatwitstudios.terrajengine.map.Block;
 import com.neatwitstudios.terrajengine.map.CollisionsChecker;
@@ -53,6 +54,7 @@ public class Porcupine extends Entity {
         if (Math.abs(player.getX() - x) < Block.SIZE * 8
                 && Math.abs(player.getY() - y) < Block.SIZE
                 && attackCoolDown == 0) {
+            SoundManager.playSE(2);
             attackManager.submitAttack(new ProjectileAttack(
                     this,
                     collisionsChecker

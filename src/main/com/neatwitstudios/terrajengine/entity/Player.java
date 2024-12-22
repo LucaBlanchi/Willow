@@ -71,6 +71,7 @@ public class Player extends Entity {
         if (mouseHandler.isMouse1Pressed()) {
             isAttacking = true;
             if (attackCounter == 0) {
+                SoundManager.playSE(2);
                 attackManager.submitAttack(new StandardAttack(
                         solidBounds.width / 2,
                         0,
@@ -104,6 +105,9 @@ public class Player extends Entity {
         }
         int newYSpeed = collisionsChecker.getAdjustedYSpeedToAvoidCollision(this);
         y += newYSpeed;
+        if (isJumping && newYSpeed != 0) {
+            SoundManager.playSE(1);
+        }
 
         xSpeed = SPEED * (keyHandler.isRightPressed() ? 1 : 0) - SPEED * (keyHandler.isLeftPressed() ? 1 : 0);
         updateFacingDirection();

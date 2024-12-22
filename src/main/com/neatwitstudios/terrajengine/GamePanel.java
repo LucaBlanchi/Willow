@@ -65,6 +65,8 @@ public class GamePanel extends JPanel implements Runnable {
         });
 
         zoneManager.loadInitialZone();
+
+        SoundManager.playMusic(0);
     }
 
     private void handleResize() {
@@ -109,6 +111,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         if (endScreen) {
+            if (keyHandler.isRPressed()) {
+                zoneManager.loadZone(0);
+                endScreen = false;
+            }
             return;
         }
 

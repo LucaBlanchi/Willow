@@ -22,9 +22,9 @@ public class ProjectileAttack implements Attack {
         isGoingRight = owner.isFacingRight();
         this.hitBox = new Rectangle(
                 owner.getX() - Block.SIZE / 2,
-                owner.getY() + Block.SIZE,
+                owner.getY() + Block.SIZE * 3 / 4,
                 Block.SIZE,
-                Block.SIZE / 4
+                Block.SIZE / 5
         );
         this.owner = owner;
         this.collisionsChecker = collisionsChecker;

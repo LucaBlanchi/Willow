@@ -44,6 +44,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_F3) {
             GamePanel.toggleDebugMode();
         }
+
+        if (code == KeyEvent.VK_M) {
+            SoundManager.toggleMusic(0);
+        }
     }
 
     @Override
