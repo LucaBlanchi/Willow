@@ -54,7 +54,8 @@ public class Porcupine extends Entity {
                 && Math.abs(player.getY() - y) < Block.SIZE
                 && attackCoolDown == 0) {
             attackManager.submitAttack(new ProjectileAttack(
-                    this
+                    this,
+                    collisionsChecker
             ));
             attackCoolDown = 60;
         }

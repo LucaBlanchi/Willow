@@ -93,4 +93,11 @@ public class BlockCollisionsChecker implements CollisionsChecker {
         }
         return entity.getYSpeed();
     }
+
+    public boolean isInsideCollision(int x, int y) {
+        int col = x / Block.SIZE;
+        int row = y / Block.SIZE;
+
+        return blockMapManager.isBlockSolid(row, col);
+    }
 }

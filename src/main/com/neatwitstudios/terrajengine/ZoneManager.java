@@ -49,20 +49,20 @@ public class ZoneManager {
 
                 bgAndFgManager.loadBackgrounds(List.of(
                         new BackgroundOrForeground(
-                                -10 * Block.SIZE,
-                                30 * Block.SIZE,
+                                -11 * Block.SIZE,
+                                50 * Block.SIZE,
+                                Block.SIZE * 90,
                                 Block.SIZE * 60,
-                                Block.SIZE * 40,
                                 ImageIO.read(Objects.requireNonNull(BackgroundOrForeground.class.getResourceAsStream("/static/backgrounds/background0.png"))),
                                 20
                         )
                 ));
 
                 enemyManager.loadEnemies(List.of(
-                        new Porcupine(Block.SIZE * 21, Block.SIZE * 4 + 1, player, attackManager, collisionsChecker)
+                        new Porcupine(Block.SIZE * 21, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker)
                 ));
 
-                player.initializePlayerByInitialPosition(Block.SIZE * 4, Block.SIZE + 1);
+                player.initializePlayerByInitialPosition(Block.SIZE * 4, Block.SIZE * 7 + 1);
             }
         } catch (IOException e) {
             e.printStackTrace();

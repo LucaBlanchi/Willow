@@ -12,7 +12,7 @@ import java.util.List;
 public class Player extends Entity {
 
     private static final int SPEED = Block.SIZE * 10/64;
-    private static final int JUMP_SPEED = Block.SIZE * 3/8;
+    private static final int JUMP_SPEED = Block.SIZE * 5/16;
     private static final int GRAVITY = Block.SIZE / 64;
     private static final int MAX_FALL_SPEED = Block.SIZE * 7/32;
 

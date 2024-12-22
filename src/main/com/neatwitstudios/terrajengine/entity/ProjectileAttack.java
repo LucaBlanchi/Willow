@@ -3,6 +3,7 @@ package com.neatwitstudios.terrajengine.entity;
 import com.neatwitstudios.terrajengine.CoordConverter;
 import com.neatwitstudios.terrajengine.camera.Camera;
 import com.neatwitstudios.terrajengine.map.Block;
+import com.neatwitstudios.terrajengine.map.CollisionsChecker;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,8 +19,9 @@ public class ProjectileAttack implements Attack {
     private boolean isFinished;
 
     private final Entity owner;
+    private final CollisionsChecker collisionsChecker;
 
-    public ProjectileAttack(Entity owner) {
+    public ProjectileAttack(Entity owner, CollisionsChecker collisionsChecker) {
         isGoingRight = owner.isFacingRight();
         this.hitBox = new Rectangle(
                 owner.getX() - Block.SIZE / 2,
@@ -28,11 +30,15 @@ public class ProjectileAttack implements Attack {
                 Block.SIZE / 4
         );
         this.owner = owner;
+        this.collisionsChecker = collisionsChecker;
     }
 
     public void update() {
         hitBox.x += isGoingRight ? Block.SIZE / 4 : -Block.SIZE / 4;
 
+        if (collisionsChecker.isInsideCollision(hitBox.x, hitBox.y)) {
+            duration = 0;
+        }
         duration--;
         if (duration <= 0) {
             isFinished = true;
