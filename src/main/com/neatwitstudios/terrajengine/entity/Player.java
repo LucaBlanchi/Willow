@@ -6,7 +6,6 @@ import com.neatwitstudios.terrajengine.map.Block;
 import com.neatwitstudios.terrajengine.map.CollisionsChecker;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Player extends Entity {

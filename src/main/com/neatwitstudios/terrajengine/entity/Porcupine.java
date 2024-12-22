@@ -65,7 +65,7 @@ public class Porcupine extends Entity {
     }
 
     private void updatePositionAndSpeed() {
-        if (isPlayerInRange()) {
+        if (isPlayerInSight()) {
             if (player.getX() < x) {
                 xSpeed = -SPEED;
                 isFacingRight = false;
@@ -90,9 +90,10 @@ public class Porcupine extends Entity {
         y += collisionsChecker.getAdjustedYSpeedToAvoidCollision(this);
     }
 
-    private boolean isPlayerInRange() {
+    private boolean isPlayerInSight() {
         return Math.abs(player.getX() - x) < Block.SIZE * 10
-                && Math.abs(player.getX() - x) > Block.SIZE / 3;
+                && Math.abs(player.getX() - x) > Block.SIZE / 3
+                && Math.abs(player.getY() - y) < Block.SIZE * 8;
     }
 
     private void updateSprite() {

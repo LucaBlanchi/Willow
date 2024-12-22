@@ -4,6 +4,7 @@ import com.neatwitstudios.terrajengine.camera.CameraOnEntity;
 import com.neatwitstudios.terrajengine.entity.AttackManager;
 import com.neatwitstudios.terrajengine.entity.EnemyManager;
 import com.neatwitstudios.terrajengine.entity.Player;
+import com.neatwitstudios.terrajengine.items.ItemsManager;
 import com.neatwitstudios.terrajengine.map.*;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     private static final int MAX_FPS = 60;
 
     private static boolean debugMode = false;
+    private static boolean endScreen = false;
 
     private final KeyHandler keyHandler = new KeyHandler();
     private final MouseHandler mouseHandler = new MouseHandler();
@@ -30,13 +32,15 @@ public class GamePanel extends JPanel implements Runnable {
     private final CollisionsChecker blockCollisionsChecker = new BlockCollisionsChecker(blockMapManager);
     private final Player player = new Player(keyHandler, mouseHandler, attackManager, blockCollisionsChecker);
     private final EnemyManager enemyManager = new EnemyManager(attackManager);
+    private final ItemsManager itemsManager = new ItemsManager();
     private final ZoneManager zoneManager = new ZoneManager(
             attackManager,
             blockMapManager,
             blockCollisionsChecker,
             bgAndFgManager,
             player,
-            enemyManager
+            enemyManager,
+            itemsManager
     );
     private final CameraOnEntity camera = new CameraOnEntity(player, Block.SIZE * BLOCKS_PER_ROW, Block.SIZE * BLOCKS_PER_ROW * HEIGHT / WIDTH);
 
@@ -104,11 +108,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        if (endScreen) {
+            return;
+        }
+
         player.update();
         enemyManager.updateEnemies();
-        if (player.getHealth() <= 0)  {
-            zoneManager.loadZone(0);
+        itemsManager.checkCollisions(player);
+
+        if (player.getHealth() <= 0) {
+            endGame();
         }
+
         if (keyHandler.isRPressed()) {
             zoneManager.loadZone(0);
         }
@@ -121,26 +132,55 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.scale(scaleFactorX, scaleFactorY);
 
-        bgAndFgManager.drawBackground(g2d, camera);
-        blockMapManager.draw(g2d, camera);
-        enemyManager.drawEnemies(g2d, camera);
-        player.draw(g2d, camera);
-        attackManager.drawAttacks(g2d, camera);
+        if (endScreen) {
+            drawEndScreen(g2d);
+        } else {
+            bgAndFgManager.drawBackground(g2d, camera);
+            blockMapManager.draw(g2d, camera);
+            enemyManager.drawEnemies(g2d, camera);
+            itemsManager.drawItems(g2d, camera);
+            player.draw(g2d, camera);
+            attackManager.drawAttacks(g2d, camera);
 
-        if (debugMode) {
-            drawDebugFeatures(g2d);
+            if (debugMode) {
+                drawDebugFeatures(g2d);
+            }
         }
 
         g2d.dispose();
     }
 
+    private void drawEndScreen(Graphics2D g2d) {
+        g2d.setColor(new Color(0, 170, 80, 200));
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial", Font.BOLD, 48));
+        String message = "You win!";
+        FontMetrics fm = g2d.getFontMetrics();
+        int x = (WIDTH - fm.stringWidth(message)) / 2;
+        int y = (HEIGHT - fm.getHeight()) / 2 + fm.getAscent();
+        g2d.drawString(message, x, y);
+
+        g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+        String subMessage = "Pistachio acquired";
+        int subX = (WIDTH - g2d.getFontMetrics().stringWidth(subMessage)) / 2;
+        int subY = y + 50;
+        g2d.drawString(subMessage, subX, subY);
+    }
+
     private void drawDebugFeatures(Graphics2D g2d) {
-        player.drawDebugFeatures(g2d, camera);
         enemyManager.drawDebugFeatures(g2d, camera);
+        itemsManager.drawDebugFeatures(g2d, camera);
+        player.drawDebugFeatures(g2d, camera);
         attackManager.drawDebugFeatures(g2d, camera);
     }
 
     public static void toggleDebugMode() {
         debugMode = !debugMode;
+    }
+
+    public static void endGame() {
+        endScreen = true;
     }
 }
