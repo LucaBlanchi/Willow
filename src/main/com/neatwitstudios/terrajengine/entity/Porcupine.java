@@ -14,8 +14,10 @@ public class Porcupine extends Entity {
     private static final int MAX_FALL_SPEED = Block.SIZE * 3/32;
 
     private int spriteNum = 0;
-    private int attackCoolDown = 0;
+    private int spriteWalkCounter;
+    private boolean isWalking = false;
 
+    private int attackCoolDown = 0;
 
     private final Player player;
     private final AttackManager attackManager;
@@ -33,7 +35,7 @@ public class Porcupine extends Entity {
         this.solidBounds = new Rectangle(
                 -Block.SIZE * 14/20,
                 0,
-                Block.SIZE * 14/10,
+                Block.SIZE * 12/10,
                 Block.SIZE * 14/10
         );
         this.isFacingRight = false;
@@ -71,6 +73,11 @@ public class Porcupine extends Entity {
                 isFacingRight = true;
             }
             x += collisionsChecker.getAdjustedXSpeedToAvoidCollisions(this);
+
+            isWalking = true;
+        } else {
+            spriteWalkCounter = 0;
+            isWalking = false;
         }
 
         boolean isStandingOnGround = collisionsChecker.isStandingOnGround(this);
@@ -88,7 +95,15 @@ public class Porcupine extends Entity {
     }
 
     private void updateSprite() {
-
+        spriteNum = isFacingRight ? 0 : 1;
+        if (isWalking) {
+            spriteWalkCounter++;
+            if (isFacingRight) {
+                spriteNum = spriteWalkCounter % 40 < 20 ? 2 : 3;
+            } else {
+                spriteNum = spriteWalkCounter % 40 < 20 ? 4 : 5;
+            }
+        }
     }
 
     @Override
@@ -97,8 +112,8 @@ public class Porcupine extends Entity {
                 SpritesManager.getSprites("porcupine")[spriteNum],
                 CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2, camera),
                 CoordConverter.getScreenY(y + solidBounds.y + solidBounds.height, camera),
-                CoordConverter.getResizedLength(Block.SIZE * 14/10, camera),
-                CoordConverter.getResizedLength(Block.SIZE * 14/10, camera),
+                CoordConverter.getResizedLength(solidBounds.width, camera),
+                CoordConverter.getResizedLength(solidBounds.height, camera),
                 null
         );
     }

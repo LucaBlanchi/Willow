@@ -11,6 +11,7 @@ public class SpritesManager {
     private static final Map<String, BufferedImage[]> sprites = init();
     private static final String PLAYER = "player";
     private static final String PORCUPINE = "porcupine";
+    private static final String PROJECTILE = "projectile";
 
     private SpritesManager() {
     }
@@ -18,15 +19,22 @@ public class SpritesManager {
     private static Map<String, BufferedImage[]> init() {
         Map<String, BufferedImage[]> map = Map.of(
                 PLAYER, new BufferedImage[16],
-                PORCUPINE, new BufferedImage[16]
+                PORCUPINE, new BufferedImage[16],
+                PROJECTILE, new BufferedImage[16]
         );
         try {
             map.get(PLAYER)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRight.png")));
             map.get(PLAYER)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerLeft.png")));
 
             map.get(PORCUPINE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineRight.png")));
-            map.get(PORCUPINE)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileRight.png")));
-            map.get(PORCUPINE)[2] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileLeft.png")));
+            map.get(PORCUPINE)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineLeft.png")));
+            map.get(PORCUPINE)[2] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineStep1Right.png")));
+            map.get(PORCUPINE)[3] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineStep2Right.png")));
+            map.get(PORCUPINE)[4] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineStep1Left.png")));
+            map.get(PORCUPINE)[5] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineStep2Left.png")));
+
+            map.get(PROJECTILE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileRight.png")));
+            map.get(PROJECTILE)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileLeft.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

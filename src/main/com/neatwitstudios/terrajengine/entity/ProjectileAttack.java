@@ -59,7 +59,7 @@ public class ProjectileAttack implements Attack {
 
     public void draw(Graphics2D g2d, Camera camera) {
         g2d.drawImage(
-                SpritesManager.getSprites("porcupine")[isGoingRight? 1 : 2],
+                SpritesManager.getSprites("projectile")[isGoingRight? 0 : 1],
                 CoordConverter.getScreenX(hitBox.x - hitBox.width / 2, camera),
                 CoordConverter.getScreenY(hitBox.y, camera),
                 CoordConverter.getResizedLength(hitBox.width, camera),
