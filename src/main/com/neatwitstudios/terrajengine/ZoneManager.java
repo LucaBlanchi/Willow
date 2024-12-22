@@ -65,23 +65,23 @@ public class ZoneManager {
                 ));
 
                 enemyManager.loadEnemies(List.of(
-                        new Porcupine(Block.SIZE * 21, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 50, Block.SIZE * 7 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 58, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 12, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 14, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 30, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker),
-                        new Porcupine(Block.SIZE * 60, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker)
+                        new Porcupine(Block.SIZE * 32, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 61, Block.SIZE * 7 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 69, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 23, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 25, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 41, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 71, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker)
                 ));
 
                 itemsManager.loadItems(List.of(new Pistachio(new Rectangle(
-                        Block.SIZE * 55 + Block.SIZE / 2,
+                        Block.SIZE * 66 + Block.SIZE / 2,
                         Block.SIZE * 21 + 1,
                         Block.SIZE,
                         Block.SIZE)))
                 );
 
-                player.initializePlayerByInitialPosition(Block.SIZE * 4, Block.SIZE * 7 + 1);
+                player.initializePlayerByInitialPosition(Block.SIZE * 15, Block.SIZE * 7 + 1);
             }
         } catch (IOException e) {
             e.printStackTrace();

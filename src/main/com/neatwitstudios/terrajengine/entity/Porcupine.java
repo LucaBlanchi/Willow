@@ -19,6 +19,7 @@ public class Porcupine extends Entity {
     private boolean isWalking = false;
 
     private int attackCoolDown = 0;
+    private int stunCoolDown = 0;
 
     private final Player player;
     private final AttackManager attackManager;
@@ -45,7 +46,11 @@ public class Porcupine extends Entity {
 
     @Override
     public void update() {
-        handleAttacking();
+        if (stunCoolDown > 0) {
+            stunCoolDown--;
+        } else {
+            handleAttacking();
+        }
         updatePositionAndSpeed();
         updateSprite();
     }
@@ -74,6 +79,9 @@ public class Porcupine extends Entity {
             } else {
                 xSpeed = SPEED;
                 isFacingRight = true;
+            }
+            if (stunCoolDown > 0) {
+                xSpeed = 0;
             }
             x += collisionsChecker.getAdjustedXSpeedToAvoidCollisions(this);
 
@@ -108,6 +116,12 @@ public class Porcupine extends Entity {
                 spriteNum = spriteWalkCounter % 40 < 20 ? 4 : 5;
             }
         }
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        stunCoolDown = 90;
+        health -= damage;
     }
 
     @Override
