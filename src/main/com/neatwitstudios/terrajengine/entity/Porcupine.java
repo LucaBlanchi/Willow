@@ -31,10 +31,10 @@ public class Porcupine extends Entity {
         this.xSpeed = 0;
         this.ySpeed = 0;
         this.solidBounds = new Rectangle(
-                -Block.SIZE * 19/20,
+                -Block.SIZE * 14/20,
                 0,
-                Block.SIZE * 19/10,
-                Block.SIZE * 19/10
+                Block.SIZE * 14/10,
+                Block.SIZE * 14/10
         );
         this.isFacingRight = false;
         this.health = 100;
@@ -48,14 +48,10 @@ public class Porcupine extends Entity {
     }
 
     private void handleAttacking() {
-        if (Math.abs(player.getX() - x) < Block.SIZE / 3 && Math.abs(player.getY() - y) < Block.SIZE / 3 && attackCoolDown == 0) {
+        if (Math.abs(player.getX() - x) < Block.SIZE * 8
+                && Math.abs(player.getY() - y) < Block.SIZE
+                && attackCoolDown == 0) {
             attackManager.submitAttack(new ProjectileAttack(
-                    Block.SIZE,
-                    solidBounds.height / 2,
-                    Block.SIZE / 2,
-                    Block.SIZE / 2,
-                    30,
-                    12,
                     this
             ));
             attackCoolDown = 60;
@@ -101,8 +97,8 @@ public class Porcupine extends Entity {
                 SpritesManager.getSprites("porcupine")[spriteNum],
                 CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2, camera),
                 CoordConverter.getScreenY(y + solidBounds.y + solidBounds.height, camera),
-                CoordConverter.getResizedLength(Block.SIZE * 19/10, camera),
-                CoordConverter.getResizedLength(Block.SIZE * 19/10, camera),
+                CoordConverter.getResizedLength(Block.SIZE * 14/10, camera),
+                CoordConverter.getResizedLength(Block.SIZE * 14/10, camera),
                 null
         );
     }

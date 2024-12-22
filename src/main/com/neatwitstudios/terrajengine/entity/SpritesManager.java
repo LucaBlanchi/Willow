@@ -24,7 +24,9 @@ public class SpritesManager {
             map.get(PLAYER)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRight.png")));
             map.get(PLAYER)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerLeft.png")));
 
-            map.get(PORCUPINE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupine.png")));
+            map.get(PORCUPINE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineRight.png")));
+            map.get(PORCUPINE)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileRight.png")));
+            map.get(PORCUPINE)[2] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineProjectileLeft.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

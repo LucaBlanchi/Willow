@@ -42,6 +42,8 @@ public class ZoneManager {
         loadedZoneId = zoneId;
 
         try {
+            attackManager.clearAttacks();
+
             if (zoneId == 0) {
                 blockMapManager.loadMapByPath("/resources/static/maps/map0.txt");
 

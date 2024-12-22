@@ -29,6 +29,12 @@ public class AttackManager {
         }
     }
 
+    public void drawAttacks(Graphics2D g2d, Camera camera) {
+        for (Attack attack : attacks) {
+            attack.draw(g2d, camera);
+        }
+    }
+
     public void drawDebugFeatures(Graphics2D g2d, Camera camera) {
         for (Attack attack : attacks) {
             attack.drawDebugFeatures(g2d, camera);

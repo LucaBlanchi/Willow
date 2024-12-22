@@ -36,3 +36,13 @@ x
 Hsrc/main/com/neatwitstudios/terrajengine/map/BackgroundOrForeground.java,9\e\9ecef5e6cc70c1029b2eefe79340b6ed5976fd04
 i
 9src/main/com/neatwitstudios/terrajengine/ZoneManager.java,f\4\f4aa8109a81e6bc29ec99597f9dcc7b1d9570e47
+q
+Asrc/main/com/neatwitstudios/terrajengine/entity/EnemyManager.java,f\d\fd4b10e4cd8bc3446234968db13fdeae6ea1454c
+r
+Bsrc/main/com/neatwitstudios/terrajengine/entity/AttackManager.java,6\8\68ebcfa3dc9ded255d5b1452aaf7ebc61e0ca62f
+k
+;src/main/com/neatwitstudios/terrajengine/entity/Attack.java,3\2\320ce73143a6ee0975e6a57f117455d1f93cad63
+n
+>src/main/com/neatwitstudios/terrajengine/entity/Porcupine.java,4\9\4963195a907a8fb9b686f1ef88dde77b456a565c
+u
+Esrc/main/com/neatwitstudios/terrajengine/entity/ProjectileAttack.java,2\e\2ee968aa2baf568d7b095c6c0e7fc90de9e6c9ab

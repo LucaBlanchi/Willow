@@ -120,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
         blockMapManager.draw(g2d, camera);
         enemyManager.drawEnemies(g2d, camera);
         player.draw(g2d, camera);
+        attackManager.drawAttacks(g2d, camera);
 
         if (debugMode) {
             drawDebugFeatures(g2d);

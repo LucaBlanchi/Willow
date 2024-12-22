@@ -118,5 +118,11 @@ public class Player extends Entity {
                 CoordConverter.getResizedLength(solidBounds.width, camera),
                 CoordConverter.getResizedLength(solidBounds.height, camera)
         );
+
+        g2d.drawString(
+                "Life: " + health,
+                CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2, camera),
+                CoordConverter.getScreenY(y + solidBounds.height, camera) - 30
+        );
     }
 }
