@@ -23,11 +23,12 @@ public class GamePanel extends JPanel implements Runnable {
     private static boolean debugMode = false;
 
     private final KeyHandler keyHandler = new KeyHandler();
+    private final MouseHandler mouseHandler = new MouseHandler();
     private final AttackManager attackManager = new AttackManager();
     private final BlockMapManager blockMapManager = new BlockMapManager();
     private final BackgroundAndForegroundManager bgAndFgManager = new BackgroundAndForegroundManager();
     private final CollisionsChecker blockCollisionsChecker = new BlockCollisionsChecker(blockMapManager);
-    private final Player player = new Player(keyHandler, attackManager, blockCollisionsChecker);
+    private final Player player = new Player(keyHandler, mouseHandler, attackManager, blockCollisionsChecker);
     private final EnemyManager enemyManager = new EnemyManager(attackManager);
     private final ZoneManager zoneManager = new ZoneManager(
             attackManager,
@@ -50,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
+        this.addMouseListener(mouseHandler);
 
         this.addComponentListener(new ComponentAdapter() {
             @Override
@@ -105,6 +107,9 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
         enemyManager.updateEnemies();
         if (player.getHealth() <= 0)  {
+            zoneManager.loadZone(0);
+        }
+        if (keyHandler.isRPressed()) {
             zoneManager.loadZone(0);
         }
     }

@@ -17,17 +17,26 @@ public class Player extends Entity {
     private static final int MAX_FALL_SPEED = Block.SIZE * 7/32;
 
     private final KeyHandler keyHandler;
+    private final MouseHandler mouseHandler;
     private final AttackManager attackManager;
     private final CollisionsChecker collisionsChecker;
 
     private static final int MAX_COYOTE_FRAMES = 3;
     private int coyoteFrames = 0;
 
-    private BufferedImage sprite;
+    private int spriteNum;
     private int spriteWalkCounter;
     private boolean isWalking = false;
 
-    public Player(KeyHandler keyHandler, AttackManager attackManager, CollisionsChecker collisionsChecker) {
+    private boolean isAttacking;
+    private int attackCounter;
+
+    public Player(
+            KeyHandler keyHandler,
+            MouseHandler mouseHandler,
+            AttackManager attackManager,
+            CollisionsChecker collisionsChecker
+    ) {
         solidBounds = new Rectangle(
                 -Block.SIZE * 17/20,
                 0,
@@ -36,6 +45,7 @@ public class Player extends Entity {
         );
 
         this.keyHandler = keyHandler;
+        this.mouseHandler = mouseHandler;
         this.attackManager = attackManager;
         this.collisionsChecker = collisionsChecker;
     }
@@ -53,8 +63,26 @@ public class Player extends Entity {
     @Override
     public void update() {
         attackManager.damageEntities(List.of(this));
+        handleAttacking();
         updatePositionAndSpeed();
         updateSprite();
+    }
+
+    private void handleAttacking() {
+        if (mouseHandler.isMouse1Pressed()) {
+            isAttacking = true;
+            if (attackCounter == 0) {
+                attackManager.submitAttack(new StandardAttack(
+                        solidBounds.width / 2,
+                        0,
+                        this
+                ));
+            }
+        }
+        if (isAttacking && ++attackCounter > 36) {
+            isAttacking = false;
+            attackCounter = 0;
+        }
     }
 
     private void updatePositionAndSpeed() {
@@ -96,8 +124,6 @@ public class Player extends Entity {
     }
 
     private void updateSprite() {
-        int spriteNum;
-
         if (isFacingRight) {
             spriteNum = 0;
         } else {
@@ -121,19 +147,34 @@ public class Player extends Entity {
             }
         }
 
-        sprite = SpritesManager.getSprites("player")[spriteNum];
+        if (isAttacking && attackCounter < 20) {
+            spriteNum = attackCounter < 4 ? 10 : 11;
+            if (!isFacingRight) {
+                spriteNum += 2;
+            }
+        }
     }
 
     @Override
     public void draw(Graphics2D g2d, Camera camera) {
         int spriteWidth = solidBounds.width;
-        if (isWalking) {
+        int offset = 0;
+
+        if (spriteNum > 1 && spriteNum < 10) {
             spriteWidth = solidBounds.width * 11/10;
         }
 
+        if (spriteNum == 11 || spriteNum == 13) {
+            spriteWidth = solidBounds.width * 13/10;
+        }
+
+        if (spriteNum == 13) {
+            offset = -Block.SIZE / 2;
+        }
+
         g2d.drawImage(
-                sprite,
-                CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2, camera),
+                SpritesManager.getSprites("player")[spriteNum],
+                CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2 + offset, camera),
                 CoordConverter.getScreenY(y + solidBounds.y + solidBounds.height, camera),
                 CoordConverter.getResizedLength(spriteWidth, camera),
                 CoordConverter.getResizedLength(solidBounds.height, camera),

@@ -3,40 +3,40 @@ package com.neatwitstudios.terrajengine.entity;
 import com.neatwitstudios.terrajengine.CoordConverter;
 import com.neatwitstudios.terrajengine.camera.Camera;
 import com.neatwitstudios.terrajengine.map.Block;
-import com.neatwitstudios.terrajengine.map.CollisionsChecker;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ProjectileAttack implements Attack {
+public class StandardAttack implements Attack {
 
+    private final int xDisplacement;
+    private final int yDisplacement;
     private final Rectangle hitBox;
 
-    private final boolean isGoingRight;
-    private int duration = 200;
+    private final int damage = 40;
+    private int duration = 12;
     private boolean isFinished;
 
     private final Entity owner;
-    private final CollisionsChecker collisionsChecker;
+    private final List<Entity> damagedEntities = new ArrayList<>();
 
-    public ProjectileAttack(Entity owner, CollisionsChecker collisionsChecker) {
-        isGoingRight = owner.isFacingRight();
+    public StandardAttack(int xDisplacement, int yDisplacement, Entity owner) {
+        this.xDisplacement = xDisplacement;
+        this.yDisplacement = yDisplacement;
         this.hitBox = new Rectangle(
-                owner.getX() - Block.SIZE / 2,
-                owner.getY() + Block.SIZE,
-                Block.SIZE,
-                Block.SIZE / 4
+                owner.getX() + owner.getSolidBounds().x + (owner.isFacingRight ? xDisplacement : -xDisplacement),
+                owner.getY() + yDisplacement,
+                Block.SIZE * 15/10,
+                Block.SIZE
         );
         this.owner = owner;
-        this.collisionsChecker = collisionsChecker;
     }
 
     @Override
     public void update() {
-        hitBox.x += isGoingRight ? Block.SIZE / 4 : -Block.SIZE / 4;
-
-        if (collisionsChecker.isInsideCollision(hitBox.x, hitBox.y)) {
-            duration = 0;
-        }
+        hitBox.x = owner.getX() + owner.getSolidBounds().x + (owner.isFacingRight ? xDisplacement : -xDisplacement);
+        hitBox.y = owner.getY() + yDisplacement;
         duration--;
         if (duration <= 0) {
             isFinished = true;
@@ -52,10 +52,11 @@ public class ProjectileAttack implements Attack {
                 solidBounds.width,
                 solidBounds.height
         );
-        if (owner != entity && hitBox.intersects(entityHitBox)) {
-            int damage = 30;
+        if (owner != entity
+                && hitBox.intersects(entityHitBox)
+                && !damagedEntities.contains(entity)) {
             entity.takeDamage(damage);
-            duration = 0;
+            damagedEntities.add(entity);
         }
     }
 
@@ -66,14 +67,7 @@ public class ProjectileAttack implements Attack {
 
     @Override
     public void draw(Graphics2D g2d, Camera camera) {
-        g2d.drawImage(
-                SpritesManager.getSprites("projectile")[isGoingRight? 0 : 1],
-                CoordConverter.getScreenX(hitBox.x - hitBox.width / 2, camera),
-                CoordConverter.getScreenY(hitBox.y, camera),
-                CoordConverter.getResizedLength(hitBox.width, camera),
-                CoordConverter.getResizedLength(hitBox.height, camera),
-                null
-        );
+
     }
 
     @Override
@@ -81,7 +75,7 @@ public class ProjectileAttack implements Attack {
         g2d.setColor(Color.RED);
         g2d.drawRect(
                 CoordConverter.getScreenX(hitBox.x - hitBox.width / 2, camera),
-                CoordConverter.getScreenY(hitBox.y, camera),
+                CoordConverter.getScreenY(hitBox.y + hitBox.height, camera),
                 CoordConverter.getResizedLength(hitBox.width, camera),
                 CoordConverter.getResizedLength(hitBox.height, camera)
         );

@@ -51,7 +51,7 @@ public class ZoneManager {
                         new BackgroundOrForeground(
                                 -11 * Block.SIZE,
                                 50 * Block.SIZE,
-                                Block.SIZE * 90,
+                                Block.SIZE * 91,
                                 Block.SIZE * 60,
                                 ImageIO.read(Objects.requireNonNull(BackgroundOrForeground.class.getResourceAsStream("/static/backgrounds/background0.png"))),
                                 20

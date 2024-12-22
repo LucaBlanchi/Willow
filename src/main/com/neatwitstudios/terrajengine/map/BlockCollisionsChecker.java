@@ -38,7 +38,7 @@ public class BlockCollisionsChecker implements CollisionsChecker {
         if (entity.getXSpeed() > 0) {
             if (blockMapManager.isBlockSolid(playerTopRow, playerRightCol)
                     || blockMapManager.isBlockSolid(playerBottomRow, playerRightCol)
-                    || blockMapManager.isBlockSolid(playerBottomRow, playerMiddleRow)
+                    || blockMapManager.isBlockSolid(playerMiddleRow, playerRightCol)
             ) {
                 int nearestBlockLeftEdge = (playerRightCol * Block.SIZE);
                 int maxMoveRight = nearestBlockLeftEdge - (entity.getX() + entity.getSolidBounds().x + entity.getSolidBounds().width / 2) - 1;
@@ -47,7 +47,7 @@ public class BlockCollisionsChecker implements CollisionsChecker {
         } else if (entity.getXSpeed() < 0) {
             if (blockMapManager.isBlockSolid(playerTopRow, playerLeftCol)
                     || blockMapManager.isBlockSolid(playerBottomRow, playerLeftCol)
-                    || blockMapManager.isBlockSolid(playerBottomRow, playerMiddleRow)
+                    || blockMapManager.isBlockSolid(playerMiddleRow, playerLeftCol)
             ) {
                 int nearestBlockRightEdge = (playerLeftCol * Block.SIZE) + Block.SIZE;
                 int maxMoveLeft = nearestBlockRightEdge - (entity.getX() + entity.getSolidBounds().x - entity.getSolidBounds().width / 2);

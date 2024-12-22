@@ -9,6 +9,8 @@ public class KeyHandler implements KeyListener {
     private boolean leftPressed;
     private boolean rightPressed;
 
+    private boolean rPressed;
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -18,7 +20,7 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_SPACE) {
             upPressed = true;
         }
         if (code == KeyEvent.VK_A) {
@@ -26,6 +28,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+
+        if (code == KeyEvent.VK_R) {
+            rPressed = true;
         }
 
         if (code == KeyEvent.VK_ESCAPE) {
@@ -44,7 +50,7 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_SPACE) {
             upPressed = false;
         }
         if (code == KeyEvent.VK_A) {
@@ -53,12 +59,15 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
+
+        if (code == KeyEvent.VK_R) {
+            rPressed = false;
+        }
     }
 
     public boolean isUpPressed() {
         return upPressed;
     }
-
 
     public boolean isLeftPressed() {
         return leftPressed;
@@ -66,5 +75,9 @@ public class KeyHandler implements KeyListener {
 
     public boolean isRightPressed() {
         return rightPressed;
+    }
+
+    public boolean isRPressed() {
+        return rPressed;
     }
 }

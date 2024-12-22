@@ -33,6 +33,10 @@ public class SpritesManager {
             map.get(PLAYER)[7] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRunLeft2.png")));
             map.get(PLAYER)[8] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRunLeft3.png")));
             map.get(PLAYER)[9] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRunLeft4.png")));
+            map.get(PLAYER)[10] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerKickRight1.png")));
+            map.get(PLAYER)[11] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerKickRight2.png")));
+            map.get(PLAYER)[12] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerKickLeft1.png")));
+            map.get(PLAYER)[13] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerKickLeft2.png")));
 
             map.get(PORCUPINE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineRight.png")));
             map.get(PORCUPINE)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupineLeft.png")));
