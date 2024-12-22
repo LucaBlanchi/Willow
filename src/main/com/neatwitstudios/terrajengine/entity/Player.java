@@ -24,6 +24,8 @@ public class Player extends Entity {
     private int coyoteFrames = 0;
 
     private BufferedImage sprite;
+    private int spriteWalkCounter;
+    private boolean isWalking = false;
 
     public Player(KeyHandler keyHandler, AttackManager attackManager, CollisionsChecker collisionsChecker) {
         solidBounds = new Rectangle(
@@ -78,6 +80,10 @@ public class Player extends Entity {
 
         xSpeed = SPEED * (keyHandler.isRightPressed() ? 1 : 0) - SPEED * (keyHandler.isLeftPressed() ? 1 : 0);
         updateFacingDirection();
+        isWalking = xSpeed != 0;
+        if (!isWalking) {
+            spriteWalkCounter = 0;
+        }
         x += collisionsChecker.getAdjustedXSpeedToAvoidCollisions(this);
     }
 
@@ -90,20 +96,46 @@ public class Player extends Entity {
     }
 
     private void updateSprite() {
+        int spriteNum;
+
         if (isFacingRight) {
-            sprite = SpritesManager.getSprites("player")[0];
+            spriteNum = 0;
         } else {
-            sprite = SpritesManager.getSprites("player")[1];
+            spriteNum = 1;
         }
+
+        if (isWalking) {
+            spriteWalkCounter++;
+            int q = spriteWalkCounter % 32;
+            if (q < 8) {
+                spriteNum = 2;
+            } else if (q < 16) {
+                spriteNum = 3;
+            } else if (q < 24) {
+                spriteNum = 4;
+            } else {
+                spriteNum = 5;
+            }
+            if (!isFacingRight) {
+                spriteNum += 4;
+            }
+        }
+
+        sprite = SpritesManager.getSprites("player")[spriteNum];
     }
 
     @Override
     public void draw(Graphics2D g2d, Camera camera) {
+        int spriteWidth = solidBounds.width;
+        if (isWalking) {
+            spriteWidth = solidBounds.width * 11/10;
+        }
+
         g2d.drawImage(
                 sprite,
                 CoordConverter.getScreenX(x + solidBounds.x - solidBounds.width / 2, camera),
                 CoordConverter.getScreenY(y + solidBounds.y + solidBounds.height, camera),
-                CoordConverter.getResizedLength(solidBounds.width, camera),
+                CoordConverter.getResizedLength(spriteWidth, camera),
                 CoordConverter.getResizedLength(solidBounds.height, camera),
                 null
         );
