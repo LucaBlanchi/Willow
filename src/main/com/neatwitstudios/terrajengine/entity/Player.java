@@ -7,6 +7,7 @@ import com.neatwitstudios.terrajengine.map.CollisionsChecker;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Player extends Entity {
 
@@ -16,6 +17,7 @@ public class Player extends Entity {
     private static final int MAX_FALL_SPEED = Block.SIZE * 7/32;
 
     private final KeyHandler keyHandler;
+    private final AttackManager attackManager;
     private final CollisionsChecker collisionsChecker;
 
     private static final int MAX_COYOTE_FRAMES = 3;
@@ -23,7 +25,7 @@ public class Player extends Entity {
 
     private BufferedImage sprite;
 
-    public Player(KeyHandler keyHandler, CollisionsChecker collisionsChecker) {
+    public Player(KeyHandler keyHandler, AttackManager attackManager, CollisionsChecker collisionsChecker) {
         solidBounds = new Rectangle(
                 -Block.SIZE * 17/20,
                 0,
@@ -32,6 +34,7 @@ public class Player extends Entity {
         );
 
         this.keyHandler = keyHandler;
+        this.attackManager = attackManager;
         this.collisionsChecker = collisionsChecker;
     }
 
@@ -47,6 +50,7 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        attackManager.damageEntities(List.of(this));
         updatePositionAndSpeed();
         updateSprite();
     }

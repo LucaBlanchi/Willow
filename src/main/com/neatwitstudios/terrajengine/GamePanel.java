@@ -1,6 +1,8 @@
 package com.neatwitstudios.terrajengine;
 
 import com.neatwitstudios.terrajengine.camera.CameraOnEntity;
+import com.neatwitstudios.terrajengine.entity.AttackManager;
+import com.neatwitstudios.terrajengine.entity.EnemyManager;
 import com.neatwitstudios.terrajengine.entity.Player;
 import com.neatwitstudios.terrajengine.map.*;
 
@@ -21,12 +23,19 @@ public class GamePanel extends JPanel implements Runnable {
     private static boolean debugMode = false;
 
     private final KeyHandler keyHandler = new KeyHandler();
+    private final AttackManager attackManager = new AttackManager();
     private final BlockMapManager blockMapManager = new BlockMapManager();
+    private final BackgroundAndForegroundManager bgAndFgManager = new BackgroundAndForegroundManager();
     private final CollisionsChecker blockCollisionsChecker = new BlockCollisionsChecker(blockMapManager);
-    private final Player player = new Player(keyHandler, blockCollisionsChecker);
+    private final Player player = new Player(keyHandler, attackManager, blockCollisionsChecker);
+    private final EnemyManager enemyManager = new EnemyManager(attackManager);
     private final ZoneManager zoneManager = new ZoneManager(
+            attackManager,
             blockMapManager,
-            player
+            blockCollisionsChecker,
+            bgAndFgManager,
+            player,
+            enemyManager
     );
     private final CameraOnEntity camera = new CameraOnEntity(player, Block.SIZE * BLOCKS_PER_ROW, Block.SIZE * BLOCKS_PER_ROW * HEIGHT / WIDTH);
 
@@ -94,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         player.update();
+        enemyManager.updateEnemies();
         if (player.getHealth() <= 0)  {
             zoneManager.loadZone(0);
         }
@@ -106,7 +116,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.scale(scaleFactorX, scaleFactorY);
 
+        bgAndFgManager.drawBackground(g2d, camera);
         blockMapManager.draw(g2d, camera);
+        enemyManager.drawEnemies(g2d, camera);
         player.draw(g2d, camera);
 
         if (debugMode) {
@@ -118,6 +130,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void drawDebugFeatures(Graphics2D g2d) {
         player.drawDebugFeatures(g2d, camera);
+        enemyManager.drawDebugFeatures(g2d, camera);
+        attackManager.drawDebugFeatures(g2d, camera);
     }
 
     public static void toggleDebugMode() {

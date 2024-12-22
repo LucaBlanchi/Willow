@@ -10,17 +10,21 @@ public class SpritesManager {
 
     private static final Map<String, BufferedImage[]> sprites = init();
     private static final String PLAYER = "player";
+    private static final String PORCUPINE = "porcupine";
 
     private SpritesManager() {
     }
 
     private static Map<String, BufferedImage[]> init() {
         Map<String, BufferedImage[]> map = Map.of(
-                PLAYER, new BufferedImage[16]
+                PLAYER, new BufferedImage[16],
+                PORCUPINE, new BufferedImage[16]
         );
         try {
             map.get(PLAYER)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerRight.png")));
             map.get(PLAYER)[1] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/playerLeft.png")));
+
+            map.get(PORCUPINE)[0] = ImageIO.read(Objects.requireNonNull(SpritesManager.class.getResourceAsStream("/static/sprites/porcupine.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
