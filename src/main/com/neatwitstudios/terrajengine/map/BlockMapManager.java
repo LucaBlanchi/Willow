@@ -66,11 +66,11 @@ public class BlockMapManager {
             blocks[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/blocks/air.png"))));
 
             blocks[1] = new Block();
-            blocks[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/blocks/dirt.png"))));
+            blocks[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/blocks/stone.png"))));
             blocks[1].setSolid(true);
 
             blocks[2] = new Block();
-            blocks[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/blocks/grass.png"))));
+            blocks[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/blocks/stoneAlt.png"))));
             blocks[2].setSolid(true);
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,10 +102,10 @@ public class BlockMapManager {
 
                 graphics2D.drawImage(
                         blocks[tileNum].getImage(),
-                        CoordConverter.getScreenX(blockXPosition, camera),
-                        CoordConverter.getScreenY(blockYPosition + Block.SIZE, camera),
-                        blockScreenSize + 1,
-                        blockScreenSize + 1,
+                        CoordConverter.getScreenX(blockXPosition, camera) - 4,
+                        CoordConverter.getScreenY(blockYPosition + Block.SIZE, camera) - 4,
+                        blockScreenSize + 8,
+                        blockScreenSize + 8,
                         null
                 );
             }
