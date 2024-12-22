@@ -65,12 +65,18 @@ public class ZoneManager {
                 ));
 
                 enemyManager.loadEnemies(List.of(
-                        new Porcupine(Block.SIZE * 21, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker)
+                        new Porcupine(Block.SIZE * 21, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 50, Block.SIZE * 7 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 58, Block.SIZE * 10 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 12, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 14, Block.SIZE * 20 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 30, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker),
+                        new Porcupine(Block.SIZE * 60, Block.SIZE * 21 + 1, player, attackManager, collisionsChecker)
                 ));
 
                 itemsManager.loadItems(List.of(new Pistachio(new Rectangle(
-                        Block.SIZE * 35 + Block.SIZE / 2,
-                        Block.SIZE * 7 + 1,
+                        Block.SIZE * 55 + Block.SIZE / 2,
+                        Block.SIZE * 21 + 1,
                         Block.SIZE,
                         Block.SIZE)))
                 );

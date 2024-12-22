@@ -95,7 +95,7 @@ public class Porcupine extends Entity {
     private boolean isPlayerInSight() {
         return Math.abs(player.getX() - x) < Block.SIZE * 10
                 && Math.abs(player.getX() - x) > Block.SIZE / 3
-                && Math.abs(player.getY() - y) < Block.SIZE * 8;
+                && Math.abs(player.getY() - y) < Block.SIZE * 4;
     }
 
     private void updateSprite() {
