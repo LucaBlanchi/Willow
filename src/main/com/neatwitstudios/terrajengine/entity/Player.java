@@ -71,7 +71,7 @@ public class Player extends Entity {
         if (mouseHandler.isMouse1Pressed()) {
             isAttacking = true;
             if (attackCounter == 0) {
-                SoundManager.playSE(2);
+                SoundManager.playSE(4);
                 attackManager.submitAttack(new StandardAttack(
                         solidBounds.width / 2,
                         0,
@@ -156,6 +156,12 @@ public class Player extends Entity {
                 spriteNum += 2;
             }
         }
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        SoundManager.playSE(3);
+        health -= damage;
     }
 
     @Override

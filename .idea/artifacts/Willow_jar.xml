@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Willow:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Willow_jar</output-path>
+    <root id="archive" name="TerraJ-Engine.jar">
+      <element id="module-output" name="TerraJ-Engine" />
+    </root>
+  </artifact>
+</component>

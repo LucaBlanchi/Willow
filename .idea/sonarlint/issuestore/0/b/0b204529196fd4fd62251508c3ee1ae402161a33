@@ -1,3 +1,5 @@
 
 {
-java:S2142c"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8È’ŠÕª2
+java:S2142k"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8Ú—ş¾2
+X
+java:S2696t"6Make the enclosing method "static" or remove this set.(£±Ïùÿÿÿÿ8Û—ş¾2

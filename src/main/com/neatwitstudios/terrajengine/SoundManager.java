@@ -18,6 +18,11 @@ public class SoundManager {
         soundURL[0] = SoundManager.class.getResource("/resources/static/sound/music.wav");
         soundURL[1] = SoundManager.class.getResource("/resources/static/sound/sound.wav");
         soundURL[2] = SoundManager.class.getResource("/resources/static/sound/swing.wav");
+        soundURL[3] = SoundManager.class.getResource("/resources/static/sound/Damage.wav");
+        soundURL[4] = SoundManager.class.getResource("/resources/static/sound/Kick.wav");
+        soundURL[5] = SoundManager.class.getResource("/resources/static/sound/Pistash.wav");
+        soundURL[6] = SoundManager.class.getResource("/resources/static/sound/Porcupone1.wav");
+        soundURL[7] = SoundManager.class.getResource("/resources/static/sound/Porcupone2.wav");
         return soundURL;
     }
 

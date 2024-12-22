@@ -25,6 +25,8 @@ public class Porcupine extends Entity {
     private final AttackManager attackManager;
     private final CollisionsChecker collisionsChecker;
 
+    private boolean playerSeenOnce = false;
+
     public Porcupine(int x, int y, Player player, AttackManager attackManager, CollisionsChecker collisionsChecker) {
         this.player = player;
         this.attackManager = attackManager;
@@ -59,7 +61,7 @@ public class Porcupine extends Entity {
         if (Math.abs(player.getX() - x) < Block.SIZE * 8
                 && Math.abs(player.getY() - y) < Block.SIZE
                 && attackCoolDown == 0) {
-            SoundManager.playSE(2);
+            SoundManager.playSE(6);
             attackManager.submitAttack(new ProjectileAttack(
                     this,
                     collisionsChecker
@@ -73,6 +75,10 @@ public class Porcupine extends Entity {
 
     private void updatePositionAndSpeed() {
         if (isPlayerInSight()) {
+            if (!playerSeenOnce) {
+                playerSeenOnce = true;
+                SoundManager.playSE(7);
+            }
             if (player.getX() < x) {
                 xSpeed = -SPEED;
                 isFacingRight = false;

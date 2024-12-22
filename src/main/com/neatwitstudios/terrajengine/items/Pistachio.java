@@ -1,6 +1,7 @@
 package com.neatwitstudios.terrajengine.items;
 
 import com.neatwitstudios.terrajengine.CoordConverter;
+import com.neatwitstudios.terrajengine.SoundManager;
 import com.neatwitstudios.terrajengine.camera.Camera;
 import com.neatwitstudios.terrajengine.entity.Player;
 import com.neatwitstudios.terrajengine.entity.SpritesManager;
@@ -27,6 +28,7 @@ public class Pistachio extends Item {
             return null;
         }
         pickedUp = true;
+        SoundManager.playSE(5);
         return "theEnd";
     }
 
